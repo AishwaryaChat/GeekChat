@@ -2,14 +2,18 @@ html {
     margin:0;
     padding:0;
     height:100%; /* needed for container min-height */
+    overflow:hidden;
 }
 
 nav {
   box-shadow: 0px 0px 0px #000;
+  line-height: 20px;
 }
 
 .online-users {
   margin-top: 0px;
+  overflow-y: scroll;
+  height:500px;
 }
 
 .search {
@@ -24,4 +28,8 @@ nav {
 
 .collection {
   border: 0px !important;
+}
+
+.online-head {
+  padding-left: 0.75rem !important;
 }
