@@ -1,0 +1,27 @@
+html {
+    margin:0;
+    padding:0;
+    height:100%; /* needed for container min-height */
+}
+
+nav {
+  box-shadow: 0px 0px 0px #000;
+}
+
+.online-users {
+  margin-top: 0px;
+}
+
+.search {
+  margin-bottom: 0px;
+}
+
+.user {
+  height: 100vh;
+  border-right: 1px solid #e0e0e0;
+  padding: 0px !important;
+}
+
+.collection {
+  border: 0px !important;
+}

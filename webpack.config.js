@@ -28,8 +28,11 @@ module.exports = {
     modules: [__dirname, 'node_modules'],
     alias: {
       Main: path.resolve('public/components/Main.js'),
-      User: path.resolve('public/components/User.js'),
-      Chat: path.resolve('public/components/Chat.js')
+      User: path.resolve('public/components/users/User.js'),
+      Chat: path.resolve('public/components/chat/Chat.js'),
+      Contacts: path.resolve('public/components/users/Contacts.js'),
+      Settings: path.resolve('public/components/users/Settings.js'),
+      Search: path.resolve('public/components/users/Search.js')
     },
     extensions: ['*', '.js', '.jsx']
   }
