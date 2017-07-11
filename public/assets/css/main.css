@@ -1,4 +1,4 @@
-html {
+body {
     margin:0;
     padding:0;
     height:100%; /* needed for container min-height */
@@ -32,4 +32,18 @@ nav {
 
 .online-head {
   padding-left: 0.75rem !important;
+}
+
+.chat {
+  height: 100vh;
+  align-items: center;
+}
+
+.geek-logo {
+   margin: 25%;
+}
+
+#chat-text {
+  font-family: monospace; 
+  font-size: 20px;
 }

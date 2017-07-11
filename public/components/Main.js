@@ -8,7 +8,7 @@ export default class Main extends React.Component {
     return (
       <div className='row'>
         <div className='col m4 user'><User /></div>
-        <div className='col m8'><Chat /></div>
+        <div className='col m8 chat'><Chat /></div>
       </div>
     )
   }
