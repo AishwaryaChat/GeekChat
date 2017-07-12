@@ -1,7 +1,7 @@
 html, body {
     margin:0;
     padding:0;
-    height:100%; /* needed for container min-height */
+    height:100vh; /* needed for container min-height */
     width: 100%;
     overflow: hidden;
     background-color: #f7f9fa
@@ -15,7 +15,7 @@ nav {
 .online-users {
   margin-top: 0px;
   overflow-y: scroll;
-  height:500px;
+  height: calc(100vh - 170px);
 }
 
 .search {
@@ -79,6 +79,10 @@ nav {
   padding-left: 1em;
   float: right;
   overflow: hidden;
+}
+
+.color-grey {
+  color: #757575;
 }
 
 .chat {
