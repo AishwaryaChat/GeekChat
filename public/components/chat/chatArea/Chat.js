@@ -8,7 +8,7 @@ export default class Chat extends React.Component {
   render () {
     return (
       <div>
-        <ChatNavbar />
+        <ChatNavbar selectedUser={this.props.selectedUser} />
         <ChatArea />
         <MessageBox />
       </div>

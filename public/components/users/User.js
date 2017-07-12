@@ -10,7 +10,7 @@ export default class User extends React.Component {
       <div>
         <Navbar />
         <Search />
-        <Contacts />
+        <Contacts selectedUser={this.props.selectedUser} />
       </div>
     )
   }
