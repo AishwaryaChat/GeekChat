@@ -1,8 +1,9 @@
-body {
+html, body {
     margin:0;
     padding:0;
     height:100%; /* needed for container min-height */
-    overflow:hidden;
+    width: 100%;
+    /*overflow: hidden;*/
 }
 
 nav {
@@ -22,7 +23,7 @@ nav {
 
 .user {
   height: 100vh;
-  border-right: 1px solid #e0e0e0;
+  border-right: 0.5px solid #bdbdbd;
   padding: 0px !important;
 }
 
@@ -34,7 +35,7 @@ nav {
   padding-left: 0.75rem !important;
 }
 
-.chat {
+.defaultChat {
   height: 100vh;
   align-items: center;
   background-color: #f7f9fa;
@@ -65,4 +66,28 @@ nav {
   padding-left: 1em;
   float: right;
   overflow: hidden;
+}
+
+.chat {
+  height: 100vh;
+  background-color: #f7f9fa;
+  padding: 0px !important;
+}
+
+.message-box {
+  padding: 1em;
+  background-color: #f7f9fa;
+}
+
+.input-msg {
+  margin-right: 1em !important;
+  padding-left: 1em !important;
+  border-radius: 10px !important;
+  background-color: white !important;
+}
+
+.chat-area {
+  height: 530px;
+  background-image: url('../images/chatBackground.jpg');
+  overflow-y: scroll;
 }
