@@ -32,7 +32,8 @@ module.exports = {
       DefaultChat: path.resolve('public/components/chat/DefaultChat.js'),
       Chat: path.resolve('public/components/chat/Chat.js'),
       Contacts: path.resolve('public/components/users/Contacts.js'),
-      Navbar: path.resolve('public/components/users/Navbar.js'),
+      Navbar: path.resolve('public/components/users/navbar/Navbar.js'),
+      Options: path.resolve('public/components/users/navbar/Options.js'),
       Search: path.resolve('public/components/users/Search.js')
     },
     extensions: ['*', '.js', '.jsx']
