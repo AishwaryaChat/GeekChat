@@ -3,7 +3,8 @@ html, body {
     padding:0;
     height:100%; /* needed for container min-height */
     width: 100%;
-    /*overflow: hidden;*/
+    overflow: hidden;
+    background-color: #f7f9fa
 }
 
 nav {
@@ -18,7 +19,20 @@ nav {
 }
 
 .search {
+  height: 50px !important;
   margin-bottom: 0px;
+  font-size: 10px;
+  border-radius: 50px !important;
+  background-color: white;
+}
+
+#search-icon {
+  font-size: 20px;
+  margin-top: 15px;
+}
+
+#search-input {
+
 }
 
 .user {
@@ -38,7 +52,6 @@ nav {
 .defaultChat {
   height: 100vh;
   align-items: center;
-  background-color: #f7f9fa;
 }
 
 .logo {
@@ -70,13 +83,11 @@ nav {
 
 .chat {
   height: 100vh;
-  background-color: #f7f9fa;
   padding: 0px !important;
 }
 
 .message-box {
   padding: 1em;
-  background-color: #f7f9fa;
 }
 
 .input-msg {
