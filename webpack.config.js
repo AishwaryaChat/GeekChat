@@ -29,6 +29,7 @@ module.exports = {
     alias: {
       Main: path.resolve('public/components/Main.js'),
       User: path.resolve('public/components/users/User.js'),
+      DefaultChat: path.resolve('public/components/chat/DefaultChat.js'),
       Chat: path.resolve('public/components/chat/Chat.js'),
       Contacts: path.resolve('public/components/users/Contacts.js'),
       Settings: path.resolve('public/components/users/Settings.js'),
