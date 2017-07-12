@@ -1,14 +1,14 @@
 import React from 'react'
 
 import Contacts from 'Contacts'
-import Settings from 'Settings'
+import Navbar from 'Navbar'
 import Search from 'Search'
 
 export default class User extends React.Component {
   render () {
     return (
       <div>
-        <Settings />
+        <Navbar />
         <Search />
         <Contacts />
       </div>

@@ -54,3 +54,19 @@ nav {
 #geek-logo {
   border-radius: 100%;
 }
+
+.nav > li:first-child {
+  float: left;
+}
+
+.nav li {
+  padding-top: .5em;
+  padding-right: 1em;
+  padding-left: 1em;
+  float: right;
+  overflow: hidden;
+}
+
+#profile-pic {
+  border-radius: 100%;
+}
