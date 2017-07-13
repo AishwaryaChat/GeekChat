@@ -25,6 +25,8 @@
     "body-parser": "^1.17.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.3",
+    "express-session": "^1.15.3",
+    "isomorphic-fetch": "^2.2.1",
     "materialize-css": "^0.99.0",
     "node-uuid": "^1.4.8",
     "react": "^15.6.1",
