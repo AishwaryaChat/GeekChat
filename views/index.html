@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <title>GeekChat</title>
+    <link rel='stylesheet' type='text/css' href='/css/style.css'/>
   </head>
   <body>
-    <p>Views</p>
+    <div class='tab'>
+      <button class='tablinks' id='signinLink' onclick='openTab(event, "signin")'>Sign In</button>
+      <button class='tablinks' id='signupLink' onclick='openTab(event, "signup")'>Sign Up</button>
+      <div class='tabContent' id='signin'>
+        <img class='logo' src='images/geeklogo.png'/>
+        <form action='/login' method='post' Content-type='application/json' id='submitForm' >
+          <input type='email' id='emailID' name='emailAddress' placeholder="email address" required/>
+          <input type='password' id='pass' name='password' placeholder='password' required/>
+          <input type='submit' value='Sign In' id='subBtn' />
+        </form>
+      </div>
+      <div class='tabContent' id='signup'>
+        <img class='logo' src='images/geeklogo.png'/>
+        <form action='/signup' method='post' Content-type='application/json' id='submitForm'>
+          <input type='text' id='firstname' placeholder='First Name' name='firstname' required />
+          <input type='text' id='lastname' placeholder='Last Name' name='lastname' required />
+          <input type='text' id='userid' placeholder='eg @aishchat13' name='userid' required />
+          <input type='email' id='emailID' placeholder="email address" name='emailAddress' required />
+          <input type='password' id='pass' placeholder='password' name='password' required />
+          <input type='submit' value='Register' id='subBtn' />
+        </form>
+      </div>
+    </div>
+    <script>
+    const openTab = (event, tabname) => {
+      let i = 0
+      let tabcontent = document.getElementsByClassName('tabContent')
+      let tablinks = document.getElementsByClassName('tablinks')
+      for (; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = 'none'
+      }
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace('active', '')
+      }
+
+      document.getElementById(tabname).style.display = 'block'
+      event.currentTarget.className += 'active'
+    }
+    document.getElementById('signinLink').click()
+    </script>
   </body>
 </html>
