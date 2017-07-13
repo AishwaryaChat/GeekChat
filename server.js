@@ -10,7 +10,7 @@ const session = require('express-session')
 const config = require('./config')
 
 const sess = {
-  uniqID: uuid.v4(),
+  id: uuid.v4(),
   secret: config.SESSION_SECRET,
   resave: true,
   saveUninitialized: true
@@ -23,6 +23,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
 app.use(session(sess))
+app.use('/io-square', express.static(path.join(__dirname, '/node_modules/io-square-browser/lib')))
 
 app.listen(3000, () => {
   console.log('listening on port 3000')
@@ -50,7 +51,7 @@ const validateUser = (loginUser, req, res) => {
         res.cookie('cookieName', cookie, {maxAge: 900000, httpOnly: true})
         console.log('created Cookie successfully', cookie)
       }
-      req.session.user_id = uuid.v4()
+      req.session.user_id = loginUser.emailAddress
     }
   })
   if (flag) {
@@ -74,6 +75,14 @@ app.post('/login', (req, res) => {
 })
 
 app.get('/home', (req, res) => {
-  console.log('sessionn', req.session)
+  console.log('sessionn', req.session.id, req.session)
   res.sendFile(path.join(__dirname, 'public/index.html'))
+})
+
+app.get('/userData', (req, res) => {
+  users.map(user => {
+    if (req.session.user_id === user.emailAddress) {
+      res.send({firstName: user.firstname, lastName: user.lastname})
+    }
+  })
 })

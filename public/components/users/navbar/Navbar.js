@@ -2,18 +2,35 @@ import React from 'react'
 
 import Options from 'Options'
 
-const Navbar = () => {
-  return (
-    <nav className='grey lighten-2 color-grey'>
-      <div className='profile'>
-        <ul className='nav'>
-          <li className='avtar' id='profile-pic'><i className='material-icons'>perm_identity</i></li>
-          <li><Options /></li>
-          <li><i className='material-icons'>chat</i></li>
-        </ul>
-      </div>
-    </nav>
-  )
+export default class Navbar extends React.Component {
+  constructor () {
+    super()
+    this.state = {
+      userName: 'loading'
+    }
+  }
+  componentDidMount () {
+    IO.getJSON('/userData')
+    .then(data => {
+      this.setState({
+        userName: data.firstName
+      })
+    })
+  }
+
+  render () {
+    return (
+      <nav className='grey lighten-2 color-grey'>
+        <div className='profile'>
+          <ul className='nav'>
+            <li id='profile-pic'>{this.state.userName}</li>
+            <li><Options /></li>
+            <li><i className='material-icons'>chat</i></li>
+          </ul>
+        </div>
+      </nav>
+    )
+  }
 }
 
 module.exports = Navbar
