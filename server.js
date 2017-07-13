@@ -21,6 +21,15 @@ const addUserToDB = (user) => {
   users = fs.writeFileSync('./data.json', JSON.stringify(users, null, 4), 'utf8')
 }
 
+const validateUser = (loginUser, res) => {
+  users.map(user => {
+    if (user.emailAddress === loginUser.emailAddress) {
+      console.log('loginUser')
+      return res.redirect('/home')
+    }
+  })
+}
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/index.html'))
 })
@@ -28,4 +37,12 @@ app.get('/', (req, res) => {
 app.post('/signup', (req, res) => {
   addUserToDB(req.body)
   res.redirect('/')
+})
+
+app.post('/login', (req, res) => {
+  validateUser(req.body, res)
+})
+
+app.get('/home', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'))
 })
