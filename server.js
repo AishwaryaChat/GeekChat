@@ -18,7 +18,6 @@ const sess = {
 
 app.use(express.static(path.join(__dirname, 'public/build')))
 app.use(express.static(path.join(__dirname, 'public/assets')))
-app.use(express.static(path.join(__dirname, 'views')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
@@ -41,7 +40,6 @@ const addUserToDB = (user) => {
 
 const validateUser = (loginUser, req, res) => {
   let flag = false
-  console.log('something')
   users.map(user => {
     if (user.emailAddress === loginUser.emailAddress) {
       flag = true
@@ -49,7 +47,6 @@ const validateUser = (loginUser, req, res) => {
       if (cookie === undefined) {
         cookie = uuid.v4()
         res.cookie('cookieName', cookie, {maxAge: 900000, httpOnly: true})
-        console.log('created Cookie successfully', cookie)
       }
       req.session.user_id = loginUser.emailAddress
     }
@@ -62,7 +59,11 @@ const validateUser = (loginUser, req, res) => {
 }
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views/index.html'))
+  if (req.session.user_id !== undefined) {
+    res.sendFile(path.join(__dirname, 'public/index.html'))
+  } else {
+    res.sendFile(path.join(__dirname, 'views/index.html'))
+  }
 })
 
 app.post('/signup', (req, res) => {
@@ -75,8 +76,11 @@ app.post('/login', (req, res) => {
 })
 
 app.get('/home', (req, res) => {
-  console.log('sessionn', req.session.id, req.session)
-  res.sendFile(path.join(__dirname, 'public/index.html'))
+  if (req.session.user_id !== undefined) {
+    res.sendFile(path.join(__dirname, 'public/index.html'))
+  } else {
+    res.redirect('/')
+  }
 })
 
 app.get('/userData', (req, res) => {
