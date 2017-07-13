@@ -19,7 +19,7 @@ export default class Contacts extends React.Component {
           {
             onlineUsers.map(user => <li className='collection-item avatar'
               key={i++}
-              onClick={e => that.props.selectedUser(user)}>{user}</li>)
+              onClick={e => that.props.selectedUser(user, e)}>{user}</li>)
           }
         </ul>
       </div>
