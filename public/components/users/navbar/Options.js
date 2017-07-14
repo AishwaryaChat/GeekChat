@@ -1,18 +1,20 @@
 import React from 'react'
 
-export default class Settings extends React.Component {
+export default class Options extends React.Component {
   render () {
     return (
-      <a className='dropdown-button color-grey' data-beloworigin={true} data-alignment='right' href='#!' data-activates='dropdown1'>
-        <i className='material-icons'>settings</i>
+      <div>
+        <a className='dropdown-button color-grey' data-beloworigin={true} data-alignment='right' href='#!' data-activates='dropdown1'>
+          <i className='material-icons'>settings</i>
+        </a>
         <ul id='dropdown1' className='dropdown-content'>
           <li>Profile</li>
           <li>Settings</li>
           <li><a href='/logout'>Logout</a></li>
         </ul>
-      </a>
+      </div>
     )
   }
 }
 
-module.exports = Settings
+module.exports = Options

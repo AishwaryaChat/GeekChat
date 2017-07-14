@@ -15,9 +15,6 @@ const server = require('http').createServer(app)
 const io = require('socket.io').listen(server)
 const sharedSession = require('express-socket.io-session')
 
-let connections = []
-let onlineUsers = []
-
 app.use(express.static(path.join(__dirname, 'public/build')))
 app.use(express.static(path.join(__dirname, 'public/assets')))
 app.use(bodyParser.json())
@@ -34,9 +31,11 @@ server.listen(3000, () => {
 
 // let users = JSON.parse(fs.readFileSync('./data.json', 'utf8'))
 let users = require('./data.json')
+let onlineUsers = []
 
 const addUserToDB = (user) => {
   user.onlineFlag = false
+  user.sockets = ''
   users.push(user)
   fs.writeFile('./data.json', JSON.stringify(users, null, 4), 'utf8')
 }
@@ -63,11 +62,7 @@ const validateUser = (loginUser, req, res) => {
 }
 
 app.get('/', (req, res) => {
-  if (req.session.user_id !== undefined) {
-    res.sendFile(path.join(__dirname, 'public/index.html'))
-  } else {
-    res.sendFile(path.join(__dirname, 'views/index.html'))
-  }
+  res.sendFile(path.join(__dirname, 'views/index.html'))
 })
 
 app.post('/signup', (req, res) => {
@@ -80,23 +75,15 @@ app.post('/login', (req, res) => {
 })
 
 app.get('/home', (req, res) => {
-  if (req.session.user_id !== undefined) {
-    res.sendFile(path.join(__dirname, 'public/index.html'))
-  } else {
-    res.redirect('/')
-  }
+  res.sendFile(path.join(__dirname, 'public/index.html'))
 })
 
 app.get('/userData', (req, res) => {
-  if (req.session.user_id !== undefined) {
-    users.map(user => {
-      if (req.session.user_id === user.emailAddress) {
-        res.send({firstName: user.firstname, lastName: user.lastname})
-      }
-    })
-  } else {
-    res.redirect('/')
-  }
+  users.map(user => {
+    if (req.session.user_id === user.emailAddress) {
+      res.send({firstName: user.firstname, lastName: user.lastname})
+    }
+  })
 })
 
 app.get('/logout', (req, res) => {
@@ -106,9 +93,37 @@ app.get('/logout', (req, res) => {
 
 io.sockets.on('connection', socket => {
   socket.on('new user', () => {
-    console.log('new user', socket.id)
+    users.map(user => {
+      if (user.emailAddress === socket.handshake.session.user_id) {
+        user.socket = socket.id
+        onlineUsers.push(user)
+      }
+    })
+    getOnlineUsers(socket)
   })
   socket.on('disconnect', (data) => {
+    users.map(user => {
+      if (user.socket === socket.id) {
+        user.onlineFlag = false
+      }
+    })
     console.log('user disconnected')
   })
 })
+
+const getOnlineUsers = (socket) => {
+  console.log('inside getOnlineUsers')
+  var i = 0
+  for (; i < onlineUsers.length; i++) {
+    let onlineUserList = []
+    onlineUsers.map(user => {
+      if (user.emailAddress !== onlineUsers[i].emailAddress) {
+        onlineUserList.push({
+          name: `${user.firstname} ${user.lastname}`,
+          userid: user.userid,
+          emailAddress: user.emailAddress})
+      }
+    })
+    io.sockets.in(onlineUsers[i].socket).emit('getOnlineUsers', onlineUserList)
+  }
+}

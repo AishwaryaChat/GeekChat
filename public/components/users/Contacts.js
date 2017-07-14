@@ -4,12 +4,26 @@ export default class Contacts extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      users: ['Aish', 'Harsh', 'Mrinal', 'Rishabh', 'Aish', 'Harsh', 'Mrinal', 'Rishabh', 'Aish', 'Harsh', 'Mrinal', 'Rishabh']
+      onlineUsers: []
     }
   }
 
+  componentDidMount () {
+    window.socket.emit('new user')
+    window.socket.on('getOnlineUsers', (onlineUsers) => {
+      this.setState({
+        onlineUsers: onlineUsers
+      })
+    })
+  }
+
+  componentWillUnmount () {
+    window.socket.removeListener('new user')
+    window.socket.removeListener('getOnlineUsers')
+  }
+
   render () {
-    const onlineUsers = this.state.users
+    const onlineUsers = this.state.onlineUsers
     let i = 0
     let that = this
     return (
@@ -19,7 +33,7 @@ export default class Contacts extends React.Component {
           {
             onlineUsers.map(user => <li className='collection-item avatar'
               key={i++}
-              onClick={e => that.props.selectedUser(user, e)}>{user}</li>)
+              onClick={e => that.props.selectedUser(user.name, e)}>{user.name}</li>)
           }
         </ul>
       </div>
