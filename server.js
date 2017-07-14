@@ -5,26 +5,30 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const fs = require('fs')
 const uuid = require('node-uuid')
-const session = require('express-session')
-
 const config = require('./config')
-
-const sess = {
-  id: uuid.v4(),
+const session = require('express-session')({
   secret: config.SESSION_SECRET,
   resave: true,
   saveUninitialized: true
-}
+})
+const server = require('http').createServer(app)
+const io = require('socket.io').listen(server)
+const sharedSession = require('express-socket.io-session')
+
+let connections = []
+let onlineUsers = []
 
 app.use(express.static(path.join(__dirname, 'public/build')))
 app.use(express.static(path.join(__dirname, 'public/assets')))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
-app.use(session(sess))
+app.use(session)
 app.use('/io-square', express.static(path.join(__dirname, '/node_modules/io-square-browser/lib')))
 
-app.listen(3000, () => {
+io.use(sharedSession(session, {autoSave: true}))
+
+server.listen(3000, () => {
   console.log('listening on port 3000')
 })
 
@@ -32,16 +36,16 @@ app.listen(3000, () => {
 let users = require('./data.json')
 
 const addUserToDB = (user) => {
+  user.onlineFlag = false
   users.push(user)
-  fs.writeFile('./data.json', JSON.stringify(users, null, 4), 'utf8', (data) => {
-    console.log('written', data)
-  })
+  fs.writeFile('./data.json', JSON.stringify(users, null, 4), 'utf8')
 }
 
 const validateUser = (loginUser, req, res) => {
   let flag = false
   users.map(user => {
     if (user.emailAddress === loginUser.emailAddress) {
+      user.onlineFlag = true
       flag = true
       let cookie = req.cookies.cookieName
       if (cookie === undefined) {
@@ -84,14 +88,27 @@ app.get('/home', (req, res) => {
 })
 
 app.get('/userData', (req, res) => {
-  users.map(user => {
-    if (req.session.user_id === user.emailAddress) {
-      res.send({firstName: user.firstname, lastName: user.lastname})
-    }
-  })
+  if (req.session.user_id !== undefined) {
+    users.map(user => {
+      if (req.session.user_id === user.emailAddress) {
+        res.send({firstName: user.firstname, lastName: user.lastname})
+      }
+    })
+  } else {
+    res.redirect('/')
+  }
 })
 
 app.get('/logout', (req, res) => {
   req.session.destroy()
   res.redirect('/')
+})
+
+io.sockets.on('connection', socket => {
+  socket.on('new user', () => {
+    console.log('new user', socket.id)
+  })
+  socket.on('disconnect', (data) => {
+    console.log('user disconnected')
+  })
 })

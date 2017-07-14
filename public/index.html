@@ -10,7 +10,11 @@
     <div id='app'>
 
     </div>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js'></script>
     <script src='/io-square/io-square-browser.js'></script>
+    <script>
+      window.socket = io.connect()
+    </script>
     <script src='bundle.js'></script>
   </body>
 </html>
