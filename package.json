@@ -32,7 +32,8 @@
     "materialize-css": "^0.99.0",
     "node-uuid": "^1.4.8",
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "socket.io": "^2.0.3"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
