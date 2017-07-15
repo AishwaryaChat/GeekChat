@@ -4,7 +4,6 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const fs = require('fs')
-const uuid = require('node-uuid')
 const config = require('./config.json')
 const session = require('express-session')({
   secret: config.SESSION_SECRET,
@@ -81,9 +80,7 @@ app.get('/', (req, res) => {
 
 app.post('/signup', users.addUser)
 
-app.post('/login', (req, res) => {
-  validateUser(req.body, req, res)
-})
+app.post('/login', users.validateUser)
 
 app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'))
@@ -102,4 +99,4 @@ app.get('/logout', (req, res) => {
   res.redirect('/')
 })
 
-chatServer.listen(server, session, users)
+// chatServer.listen(server, session)

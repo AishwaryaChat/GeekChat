@@ -32,3 +32,33 @@ function createUser (req, res) {
     }
   })
 }
+
+// User authentication
+exports.validateUser = (req, res) => {
+  if (req.body.emailAddress === '' || req.body.password === '') {
+    return res.send({message: 'NO'})
+  }
+  Users.findOne({'emailAddress': req.body.emailAddress}, (err, doc) => {
+    if (doc) {
+      checkPassword(req, res)
+    } else {
+      return res.send({message: 'not found'})
+    }
+    if (err) {
+      res.send({err})
+    }
+  })
+}
+
+const checkPassword = (req, res) => {
+  Users.findOne({'emailAddress': req.body.emailAddress}, 'password', (err, resp) => {
+    if (resp.password === req.body.password) {
+      req.session.user_id = resp.emailAddress
+      res.redirect('/home')
+    } else if (resp.password !== req.body.password) {
+      res.send({message: 'not matched'})
+    } else {
+      res.send({err})
+    }
+  })
+}
