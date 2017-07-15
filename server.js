@@ -12,11 +12,12 @@ const session = require('express-session')({
   saveUninitialized: true
 })
 const server = require('http').createServer(app)
-const redis = require('redis')
-const mongoose = require('mongoose');
+// const redis = require('redis')
+const mongoose = require('mongoose')
 
 const chatServer = require('./lib/chatServer')
-const client = redis.createClient()
+const users = require('./src/controllers/users.js')
+// const client = redis.createClient()
 
 app.use(express.static(path.join(__dirname, 'public/build')))
 app.use(express.static(path.join(__dirname, 'public/assets')))
@@ -43,7 +44,7 @@ db.once('open', (err) => {
 })
 
 // let users = JSON.parse(fs.readFileSync('./data.json', 'utf8'))
-let users = require('./data.json')
+// let users = require('./data.json')
 // client.set('users', JSON.stringify(users), redis.print)
 
 const addUserToDB = (user) => {
@@ -78,10 +79,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/index.html'))
 })
 
-app.post('/signup', (req, res) => {
-  addUserToDB(req.body)
-  res.redirect('/')
-})
+app.post('/signup', users.addUser)
 
 app.post('/login', (req, res) => {
   validateUser(req.body, req, res)
