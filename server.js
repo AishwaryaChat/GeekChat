@@ -5,14 +5,18 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const fs = require('fs')
 const uuid = require('node-uuid')
-// const config = require('./config.json')
+const config = require('./config.json')
 const session = require('express-session')({
-  secret: 'something',
+  secret: config.SESSION_SECRET,
   resave: true,
   saveUninitialized: true
 })
 const server = require('http').createServer(app)
+const redis = require('redis')
+const mongoose = require('mongoose');
+
 const chatServer = require('./lib/chatServer')
+const client = redis.createClient()
 
 app.use(express.static(path.join(__dirname, 'public/build')))
 app.use(express.static(path.join(__dirname, 'public/assets')))
@@ -22,53 +26,31 @@ app.use(cookieParser())
 app.use(session)
 app.use('/io-square', express.static(path.join(__dirname, '/node_modules/io-square-browser/lib')))
 
-server.listen(3000, () => {
-  console.log('listening on port 3000')
+// Database connection
+mongoose.connect(`mongodb://${config.HOST_NAME}:${config.PORT_NUMBER}/${config.DB_NAME}`)
+const db = mongoose.connection
+mongoose.Promise = require('promise')
+db.on('error', console.error.bind(console, 'db connection error:'))
+
+db.once('open', (err) => {
+  if (err) {
+    throw new Error('Db not connected')
+  }
+  server.listen(3000, () => {
+    console.log('listening on port 3000')
+  })
+  console.log('DB connected successfully and APP listening at: ' + Date())
 })
 
 // let users = JSON.parse(fs.readFileSync('./data.json', 'utf8'))
-let users = [{
-    "firstname": "Aishwarya",
-    "lastname": "Chaturvedi",
-    "userid": "aishchat13",
-    "emailAddress": "chaturvedi.aishwarya@gmail.com",
-    "password": "12",
-    "onlineFlag": false,
-    "socket": "cIz7co1gv5ErFDGzAAAC"
-},
-{
-    "firstname": "santosh",
-    "lastname": "rajan",
-    "userid": "santosh17",
-    "emailAddress": "santoshrajan@gmail.com",
-    "password": "123",
-    "onlineFlag": false,
-    "socket": "ou0DCmsTUPY2OHyLAAAF"
-},
-{
-    "firstname": "Harsh",
-    "lastname": "Tripathi",
-    "userid": "harsh18",
-    "emailAddress": "harsh.tripati@gmail.com",
-    "password": "12",
-    "onlineFlag": false,
-    "sockets": "",
-    "socket": "KLrGXcgU21auFB9UAAAG"
-},
-{
-    "firstname": "iti",
-    "lastname": "iti",
-    "userid": "iti",
-    "emailAddress": "iti@gmail.com",
-    "password": "1",
-    "onlineFlag": false,
-    "sockets": ""
-}]
+let users = require('./data.json')
+// client.set('users', JSON.stringify(users), redis.print)
 
 const addUserToDB = (user) => {
   user.onlineFlag = false
   user.sockets = ''
   users.push(user)
+  fs.writeFile('./data.json', JSON.stringify(users, null, 4), 'utf8')
 }
 
 const validateUser = (loginUser, req, res) => {
