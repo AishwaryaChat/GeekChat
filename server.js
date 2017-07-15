@@ -53,27 +53,6 @@ const addUserToDB = (user) => {
   fs.writeFile('./data.json', JSON.stringify(users, null, 4), 'utf8')
 }
 
-const validateUser = (loginUser, req, res) => {
-  let flag = false
-  users.map(user => {
-    if (user.emailAddress === loginUser.emailAddress) {
-      user.onlineFlag = true
-      flag = true
-      let cookie = req.cookies.cookieName
-      if (cookie === undefined) {
-        cookie = uuid.v4()
-        res.cookie('cookieName', cookie, {maxAge: 900000, httpOnly: true})
-      }
-      req.session.user_id = loginUser.emailAddress
-    }
-  })
-  if (flag) {
-    res.redirect('/home')
-  } else {
-    res.send('users not found')
-  }
-}
-
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/index.html'))
 })
@@ -86,13 +65,7 @@ app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'))
 })
 
-app.get('/userData', (req, res) => {
-  users.map(user => {
-    if (req.session.user_id === user.emailAddress) {
-      res.send({firstName: user.firstname, lastName: user.lastname})
-    }
-  })
-})
+app.get('/userData', users.findUser)
 
 app.get('/logout', (req, res) => {
   req.session.destroy()

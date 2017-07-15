@@ -51,7 +51,7 @@ exports.validateUser = (req, res) => {
 }
 
 const checkPassword = (req, res) => {
-  Users.findOne({'emailAddress': req.body.emailAddress}, 'password', (err, resp) => {
+  Users.findOne({'emailAddress': req.body.emailAddress}, ['emailAddress', 'password'], (err, resp) => {
     if (resp.password === req.body.password) {
       req.session.user_id = resp.emailAddress
       res.redirect('/home')
@@ -60,5 +60,19 @@ const checkPassword = (req, res) => {
     } else {
       res.send({err})
     }
+  })
+}
+
+exports.findUser = (req, res) => {
+  Users.findOne({'emailAddress': req.session.user_id}, (err, resp) => {
+    if (err) {
+      return res.send(err)
+    }
+    return res.send({
+      name: resp.name,
+      firstname: resp.firstname,
+      lastname: resp.lastname,
+      userid: res.userid
+    })
   })
 }

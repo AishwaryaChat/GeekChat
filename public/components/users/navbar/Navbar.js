@@ -6,14 +6,16 @@ export default class Navbar extends React.Component {
   constructor () {
     super()
     this.state = {
-      userName: 'loading'
+      currentUser: {
+        name: 'loading'
+      }
     }
   }
   componentDidMount () {
     IO.getJSON('/userData')
     .then(data => {
       this.setState({
-        userName: data.firstName
+        currentUser: data
       })
     })
   }
@@ -23,7 +25,7 @@ export default class Navbar extends React.Component {
       <nav className='grey lighten-2 color-grey'>
         <div className='profile'>
           <ul className='nav'>
-            <li id='profile-pic'>{this.state.userName}</li>
+            <li id='profile-pic'>{this.state.currentUser.firstname}</li>
             <li><Options /></li>
             <li><i className='material-icons'>chat</i></li>
           </ul>
