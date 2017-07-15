@@ -27,13 +27,48 @@ server.listen(3000, () => {
 })
 
 // let users = JSON.parse(fs.readFileSync('./data.json', 'utf8'))
-let users = require('./data.json')
+let users = [{
+    "firstname": "Aishwarya",
+    "lastname": "Chaturvedi",
+    "userid": "aishchat13",
+    "emailAddress": "chaturvedi.aishwarya@gmail.com",
+    "password": "12",
+    "onlineFlag": false,
+    "socket": "cIz7co1gv5ErFDGzAAAC"
+},
+{
+    "firstname": "santosh",
+    "lastname": "rajan",
+    "userid": "santosh17",
+    "emailAddress": "santoshrajan@gmail.com",
+    "password": "123",
+    "onlineFlag": false,
+    "socket": "ou0DCmsTUPY2OHyLAAAF"
+},
+{
+    "firstname": "Harsh",
+    "lastname": "Tripathi",
+    "userid": "harsh18",
+    "emailAddress": "harsh.tripati@gmail.com",
+    "password": "12",
+    "onlineFlag": false,
+    "sockets": "",
+    "socket": "KLrGXcgU21auFB9UAAAG"
+},
+{
+    "firstname": "iti",
+    "lastname": "iti",
+    "userid": "iti",
+    "emailAddress": "iti@gmail.com",
+    "password": "1",
+    "onlineFlag": false,
+    "sockets": ""
+}]
 
 const addUserToDB = (user) => {
   user.onlineFlag = false
   user.sockets = ''
   users.push(user)
-  fs.writeFile('./data.json', JSON.stringify(users, null, 4), 'utf8')
 }
 
 const validateUser = (loginUser, req, res) => {
