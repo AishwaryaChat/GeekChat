@@ -5,9 +5,9 @@ const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const fs = require('fs')
 const uuid = require('node-uuid')
-const config = require('./config')
+// const config = require('./config.json')
 const session = require('express-session')({
-  secret: config.SESSION_SECRET,
+  secret: 'something',
   resave: true,
   saveUninitialized: true
 })
