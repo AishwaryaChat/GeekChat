@@ -14,7 +14,6 @@ export default class Navbar extends React.Component {
   componentDidMount () {
     IO.getJSON('/userData')
     .then(data => {
-      console.log(data)
       this.setState({
         currentUser: data
       })

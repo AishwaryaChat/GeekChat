@@ -37,7 +37,7 @@ export default class Main extends React.Component {
             setMainState={this.setMainState}
             currentUser={this.state.currentUser} /></div>
         {chatSelected ? <div className='col m8 chat'>
-          <Chat selectedUser={chatSelected} /></div>
+          <Chat selectedUser={chatSelected} currentUser={this.state.currentUser} /></div>
         : <div className='col m8 defaultChat'>
           <DefaultChat /></div>}
       </div>

@@ -10,9 +10,7 @@ export default class Contacts extends React.Component {
 
   componentDidMount () {
     window.socket.on('getOnlineUsers', (onlineUsers) => {
-      console.log('currentUser', this.props.currentUser)
       let onlineUsersList = onlineUsers.filter(user => user.name !== this.props.currentUser.name)
-      console.log('onlineUsersList', onlineUsersList)
       this.setState({
         onlineUsers: onlineUsersList
       })
@@ -34,7 +32,7 @@ export default class Contacts extends React.Component {
           {
             onlineUsers.map(user => <li className='collection-item avatar'
               key={i++}
-              onClick={e => that.props.selectedUser(user.name, e)}>{user.name}</li>)
+              onClick={e => that.props.selectedUser(user, e)}>{user.name}</li>)
           }
         </ul>
       </div>

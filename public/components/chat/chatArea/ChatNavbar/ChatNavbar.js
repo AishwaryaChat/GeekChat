@@ -8,8 +8,7 @@ export default class ChatNavbar extends React.Component {
         <div className='profile'>
           <ul className='nav color-grey'>
             <li className='collection-item avatar'>
-              {/* <img src='images/yuna.jpg' alt='' class='circle' /> */}
-              <span className='title'>{this.props.selectedUser}</span>
+              <span className='title'>{this.props.selectedUser.name}</span>
             </li>
             <li><i className='material-icons'>clear_all</i></li>
             <li><i className='material-icons'>videocam</i></li>

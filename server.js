@@ -3,7 +3,6 @@ const app = express()
 const path = require('path')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
-const fs = require('fs')
 const config = require('./config.json')
 const session = require('express-session')({
   secret: config.SESSION_SECRET,
