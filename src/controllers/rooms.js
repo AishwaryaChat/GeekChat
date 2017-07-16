@@ -1,3 +1,5 @@
+const uuid = require('node-uuid')
+
 const Rooms = require('../models/rooms.js')
 
 exports.storeRoom = (room, cb) => {
@@ -11,7 +13,7 @@ exports.storeRoom = (room, cb) => {
       if (!doc) {
         createRoom(room, cb)
       } else {
-        cb(true)
+        cb(doc.id)
       }
     }
   })
@@ -28,7 +30,28 @@ const createRoom = (room, cb) => {
       console.log('not able to make room', err)
       cb(false)
     } else {
-      cb(true)
+      cb(room.id)
     }
+  })
+}
+
+exports.saveChats = (chat) => {
+  Rooms.findOne({id: chat.roomid}, 'chat', (err, doc) => {
+    if (err) {
+      return false
+    }
+    let chats = doc.chat
+    chats.push({
+      chatid: uuid.v4(),
+      sentby: chat.sentBy.userid,
+      message: chat.message
+    })
+    Rooms.update({id: chat.roomid}, {chat: chats}, (err, doc) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log('chat saved', doc)
+      }
+    })
   })
 }
