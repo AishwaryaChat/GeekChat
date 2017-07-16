@@ -8,9 +8,9 @@ export default class User extends React.Component {
   render () {
     return (
       <div>
-        <Navbar />
+        <Navbar setMainState={this.props.setMainState} />
         <Search />
-        <Contacts selectedUser={this.props.selectedUser} />
+        <Contacts selectedUser={this.props.selectedUser} currentUser={this.props.currentUser} />
       </div>
     )
   }

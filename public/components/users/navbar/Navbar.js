@@ -14,10 +14,17 @@ export default class Navbar extends React.Component {
   componentDidMount () {
     IO.getJSON('/userData')
     .then(data => {
+      console.log(data)
       this.setState({
         currentUser: data
       })
+      this.props.setMainState('currentUser', data)
+      window.socket.emit('new user', data)
     })
+  }
+
+  componentWillUnmount () {
+    window.socket.removeListener('new user')
   }
 
   render () {

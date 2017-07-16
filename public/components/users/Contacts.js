@@ -9,16 +9,17 @@ export default class Contacts extends React.Component {
   }
 
   componentDidMount () {
-    window.socket.emit('new user')
     window.socket.on('getOnlineUsers', (onlineUsers) => {
+      console.log('currentUser', this.props.currentUser)
+      let onlineUsersList = onlineUsers.filter(user => user.name !== this.props.currentUser.name)
+      console.log('onlineUsersList', onlineUsersList)
       this.setState({
-        onlineUsers: onlineUsers
+        onlineUsers: onlineUsersList
       })
     })
   }
 
   componentWillUnmount () {
-    window.socket.removeListener('new user')
     window.socket.removeListener('getOnlineUsers')
   }
 

@@ -42,17 +42,6 @@ db.once('open', (err) => {
   console.log('DB connected successfully and APP listening at: ' + Date())
 })
 
-// let users = JSON.parse(fs.readFileSync('./data.json', 'utf8'))
-// let users = require('./data.json')
-// client.set('users', JSON.stringify(users), redis.print)
-
-const addUserToDB = (user) => {
-  user.onlineFlag = false
-  user.sockets = ''
-  users.push(user)
-  fs.writeFile('./data.json', JSON.stringify(users, null, 4), 'utf8')
-}
-
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views/index.html'))
 })
@@ -72,4 +61,4 @@ app.get('/logout', (req, res) => {
   res.redirect('/')
 })
 
-// chatServer.listen(server, session)
+chatServer.listen(server, session)

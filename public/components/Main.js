@@ -8,7 +8,9 @@ export default class Main extends React.Component {
   constructor () {
     super()
     this.handleSelectedUser = this.handleSelectedUser.bind(this)
+    this.setMainState = this.setMainState.bind(this)
     this.state = {
+      currentUser: {},
       chatSelected: false
     }
   }
@@ -20,12 +22,20 @@ export default class Main extends React.Component {
     })
   }
 
+  setMainState (key, value) {
+    let newObj = {}
+    newObj[key] = value
+    this.setState(newObj)
+  }
+
   render () {
     let chatSelected = this.state.chatSelected
     return (
       <div className='row'>
         <div className='col m4 user'>
-          <User selectedUser={this.handleSelectedUser} /></div>
+          <User selectedUser={this.handleSelectedUser}
+            setMainState={this.setMainState}
+            currentUser={this.state.currentUser} /></div>
         {chatSelected ? <div className='col m8 chat'>
           <Chat selectedUser={chatSelected} /></div>
         : <div className='col m8 defaultChat'>

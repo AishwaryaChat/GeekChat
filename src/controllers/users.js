@@ -64,6 +64,7 @@ const checkPassword = (req, res) => {
 
 exports.findUser = (req, res) => {
   Users.findOne({'emailAddress': req.session.user_id}, (err, resp) => {
+    console.log('resppppppp', resp)
     if (err) {
       return res.send(err)
     }
@@ -71,7 +72,8 @@ exports.findUser = (req, res) => {
       name: resp.name,
       firstname: resp.firstname,
       lastname: resp.lastname,
-      userid: resp.userid
+      userid: resp.userid,
+      emailAddress: resp.emailAddress
     })
   })
 }
