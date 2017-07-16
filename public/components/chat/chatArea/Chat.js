@@ -10,7 +10,7 @@ export default class Chat extends React.Component {
       <div>
         <ChatNavbar selectedUser={this.props.selectedUser} />
         <ChatArea selectedUser={this.props.selectedUser} currentUser={this.props.currentUser} />
-        <MessageBox />
+        <MessageBox currentUser={this.props.currentUser} />
       </div>
     )
   }

@@ -7,13 +7,24 @@ export default class ChatArea extends React.Component {
       currentUser: this.props.currentUser,
       selectedUser: this.props.selectedUser
     }
+    this.handleMessage = this.handleMessage.bind(this)
+  }
+
+  handleMessage (obj) {
+    const chatUL = this.refs.chatList
+    let ele = document.createElement('li')
+    ele.innerHTML = `<strong>${obj.sentBy.firstname}: </strong>` + obj.message
+    chatUL.appendChild(ele)
+  }
+
+  componentWillMount () {
+    window.socket.on('show message', obj => {
+      this.handleMessage(obj)
+    })
   }
 
   componentDidMount () {
-    const currentID = this.state.currentUser.userid
-    const selectedID = this.state.selectedUser.userid
     window.socket.emit('join', {
-      id: `${currentID} ${selectedID}`,
       sender: this.state.currentUser,
       receiver: this.state.selectedUser
     })
@@ -22,8 +33,8 @@ export default class ChatArea extends React.Component {
   render () {
     return (
       <div className='row chat-area'>
-        <div className='col m12'>
-        </div>
+        <ul className='col m12' ref='chatList'>
+        </ul>
       </div>
     )
   }

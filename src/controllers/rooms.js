@@ -1,22 +1,23 @@
 const Rooms = require('../models/rooms.js')
 
-exports.storeRoom = (room) => {
+exports.storeRoom = (room, cb) => {
   const roomid1 = `${room.sender.userid} ${room.receiver.userid}`
   const roomid2 = `${room.receiver.userid} ${room.sender.userid}`
   Rooms.findOne({$or: [{'id': roomid1}, {'id': roomid2}]}, (err, doc) => {
     if (err) {
       console.log(err)
+      cb(false)
     } else {
       if (!doc) {
-        createRoom(room)
+        createRoom(room, cb)
       } else {
-        return true
+        cb(true)
       }
     }
   })
 }
 
-const createRoom = (room) => {
+const createRoom = (room, cb) => {
   console.log('room created')
   Rooms.create({
     id: room.id,
@@ -25,8 +26,9 @@ const createRoom = (room) => {
   }, (err, data) => {
     if (err) {
       console.log('not able to make room', err)
+      cb(false)
     } else {
-      return true
+      cb(true)
     }
   })
 }
