@@ -1,4 +1,4 @@
-const Users = require('../models/users.js')
+ const Users = require('../models/users.js')
 
 // Adding a new User to Database
 exports.addUser = (req, res) => {
@@ -16,13 +16,12 @@ exports.addUser = (req, res) => {
 
 function createUser (req, res) {
   Users.create({
-    id: req.session.id,
     name: `${req.body.firstname} ${req.body.lastname}`,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     emailAddress: req.body.emailAddress,
     password: req.body.password,
-    onlineFlag: false
+    userid: req.body.userid
   }, (err, response) => {
     if (err) {
       console.log(err)
@@ -72,7 +71,7 @@ exports.findUser = (req, res) => {
       name: resp.name,
       firstname: resp.firstname,
       lastname: resp.lastname,
-      userid: res.userid
+      userid: resp.userid
     })
   })
 }
