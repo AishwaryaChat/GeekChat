@@ -1,19 +1,31 @@
 import React from 'react'
 
+import video from 'public/assets/js/video.js'
+
 export default class ChatNavbar extends React.Component {
 
   constructor (props) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
+    this.showLocalVideo = this.showLocalVideo.bind(this)
+  }
+
+  showLocalVideo () {
+    navigator.mediaDevices.getUserMedia(window.VideoChatConstraints)
+    .then(stream => video.gotStream(stream, this.props.localVideoElement))
+    .catch(error => {
+      console.log(error)
+      alert('An error occured. Please try again')
+    })
   }
 
   handleClick (e) {
     e.preventDefault()
     this.props.setMainState('videoChat', 'show-video')
+    this.showLocalVideo()
   }
 
   render () {
-    console.log('chatnavbar props', this.props)
     const that = this
     return (
       <nav className='grey lighten-2'>

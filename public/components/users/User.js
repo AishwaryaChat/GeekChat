@@ -11,7 +11,7 @@ export default class User extends React.Component {
       <div>
         <Navbar setMainState={this.props.setMainState} />
         <div className={this.props.videoChat}>
-          <Video />
+          <Video setMainState={this.props.setMainState} />
         </div>
         <Search />
         <Contacts selectedUser={this.props.selectedUser} currentUser={this.props.currentUser} />

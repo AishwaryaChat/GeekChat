@@ -4,8 +4,11 @@ import 'public/assets/css/video.css'
 
 export default class Video extends React.Component {
 
+  componentDidMount () {
+    this.props.setMainState('localVideoElement', this.refs.localVideo)
+  }
+
   render () {
-    console.log('video chat props', this.state)
     return (
       <div>
         <video id='remote-video' ref='remoteVideo' autoPlay='true' />
