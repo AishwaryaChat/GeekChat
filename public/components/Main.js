@@ -37,6 +37,7 @@ export default class Main extends React.Component {
 
   render () {
     let chatSelected = this.state.chatSelected
+    console.log('main state', this.state)
     return (
       <div className='row'>
         <div className='col m4 user'>

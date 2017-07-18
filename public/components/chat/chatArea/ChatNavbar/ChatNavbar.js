@@ -8,11 +8,21 @@ export default class ChatNavbar extends React.Component {
     super(props)
     this.handleClick = this.handleClick.bind(this)
     this.showLocalVideo = this.showLocalVideo.bind(this)
+    this.sendOffer = this.sendOffer.bind(this)
+  }
+
+  sendOffer () {
+    const peerid = this.props.selectedUser.peerID
+    if (this.props.selectedUser.peerID) {
+      window.peer.connect(peerid)
+      console.log('window.peer.connect', window.peer.connect)
+    }
   }
 
   showLocalVideo () {
     navigator.mediaDevices.getUserMedia(window.VideoChatConstraints)
     .then(stream => video.gotStream(stream, this.props.localVideoElement))
+    .then(() => this.sendOffer())
     .catch(error => {
       console.log(error)
       alert('An error occured. Please try again')
