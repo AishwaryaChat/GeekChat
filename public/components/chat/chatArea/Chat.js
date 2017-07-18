@@ -10,7 +10,8 @@ export default class Chat extends React.Component {
       <div>
         <ChatNavbar selectedUser={this.props.selectedUser}
           setMainState={this.props.setMainState}
-          localVideoElement={this.props.localVideoElement} />
+          localVideoElement={this.props.localVideoElement}
+          currentUser={this.props.currentUser} />
         <ChatArea selectedUser={this.props.selectedUser} currentUser={this.props.currentUser}
           roomid={this.props.roomid} />
         <MessageBox currentUser={this.props.currentUser} setMainState={this.props.setMainState} />

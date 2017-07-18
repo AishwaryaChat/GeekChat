@@ -7,7 +7,7 @@ exports.storeRoom = (room, cb) => {
   const roomid2 = `${room.receiver.userid} ${room.sender.userid}`
   Rooms.findOne({$or: [{'id': roomid1}, {'id': roomid2}]}, (err, doc) => {
     if (err) {
-      console.log(err)
+      console.log('not able to find room', err)
       cb(false)
     } else {
       if (!doc) {
@@ -47,7 +47,7 @@ exports.saveChats = chat => {
     })
     Rooms.update({id: chat.roomid}, {chat: chats}, (err, doc) => {
       if (err) {
-        console.log(err)
+        console.log('updating room', err)
       } else {
         console.log('chat saved', doc)
       }
@@ -58,9 +58,11 @@ exports.saveChats = chat => {
 exports.findChat = (roomid, cb) => {
   Rooms.findOne({id: roomid}, (err, doc) => {
     if (err) {
-      console.log(err)
-    } else {
+      console.log('find chat', err)
+    } else if (doc !== null) {
       cb(doc.chat)
+    } else {
+      throw new Error('no chat found')
     }
   })
 }

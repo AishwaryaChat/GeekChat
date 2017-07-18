@@ -23,7 +23,9 @@ export default class Main extends React.Component {
   }
 
   handleSelectedUser (selectedUser, e) {
-    e.preventDefault()
+    if (e !== undefined) {
+      e.preventDefault()
+    }
     this.setState({
       chatSelected: selectedUser
     })

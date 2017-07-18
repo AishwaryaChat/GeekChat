@@ -9,13 +9,31 @@ export default class ChatNavbar extends React.Component {
     this.handleClick = this.handleClick.bind(this)
     this.showLocalVideo = this.showLocalVideo.bind(this)
     this.sendOffer = this.sendOffer.bind(this)
+    this.initiatePeerConnection = this.initiatePeerConnection.bind(this)
+  }
+
+  initiatePeerConnection () {
+    window.peer.on('open', () => {})
+    window.peer.on('connection', connection => {
+      const peerid = connection.peer
+      console.log('peer id inside initiatePeerConnection', peerid)
+      if (peerid) {
+        alert('accept video call')
+        this.props.setMainState('videoChat', 'show-video')
+      }
+    })
+  }
+
+  componentDidMount () {
+    this.initiatePeerConnection()
   }
 
   sendOffer () {
     const peerid = this.props.selectedUser.peerID
     if (this.props.selectedUser.peerID) {
-      window.peer.connect(peerid)
-      console.log('window.peer.connect', window.peer.connect)
+      window.peer.connect(peerid, {metadata: {
+        'chatSelected': this.props.currentUser
+      }})
     }
   }
 
