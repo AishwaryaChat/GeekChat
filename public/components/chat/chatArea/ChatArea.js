@@ -6,7 +6,8 @@ export default class ChatArea extends React.Component {
     this.state = {
       currentUser: this.props.currentUser,
       selectedUser: this.props.selectedUser,
-      messages: []
+      messages: [],
+      roomid: ''
     }
     this.handleMessage = this.handleMessage.bind(this)
   }
@@ -26,15 +27,21 @@ export default class ChatArea extends React.Component {
       })
       this.handleMessage(obj)
     })
+
+    window.socket.on('set chat history', chats => {
+      let message = []
+      chats.map(chat => {
+        message.push(chat)
+      })
+      this.setState({
+        messages: message
+      })
+    })
   }
 
   componentDidMount () {
     this.setState({
       selectedUser: this.props.selectedUser
-    })
-    window.socket.emit('join', {
-      sender: this.state.currentUser,
-      receiver: this.props.selectedUser
     })
   }
 
@@ -51,6 +58,12 @@ export default class ChatArea extends React.Component {
         messages: []
       })
     }
+    if (this.state.roomid !== nextProps.roomid) {
+      this.setState({
+        roomid: nextProps.roomid
+      })
+      window.socket.emit('send history', nextProps.roomid)
+    }
   }
 
   componentWillUnmount () {
@@ -59,11 +72,10 @@ export default class ChatArea extends React.Component {
 
   render () {
     let messages = this.state.messages
-    let i = 0
     return (
       <div className='row chat-area'>
         <ul className='col m12' ref='chatList'>
-          {messages.map(msg => <li key={i++}><strong>{msg.sentBy.firstname}</strong>{': ' + msg.message}</li>)}
+          {messages.map(msg => <li key={msg.chatid}><strong>{msg.sentby.firstname}</strong>{': ' + msg.message}</li>)}
         </ul>
       </div>
     )

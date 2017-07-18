@@ -1,13 +1,14 @@
 import React from 'react'
+import uuid from 'node-uuid'
 
 export default class MessageBox extends React.Component {
 
   componentWillMount () {
     window.socket.on('room id', roomid => {
-      console.log('room id', roomid)
-      this.state = {
+      this.setState({
         roomid: roomid
-      }
+      })
+      this.props.setMainState('roomid', roomid)
     })
   }
 
@@ -15,11 +16,11 @@ export default class MessageBox extends React.Component {
     const messageBox = this.refs.messageBox
     messageBox.addEventListener('keydown', e => {
       if (e.keyCode === 13) {
-        console.log('new messageeeeeeeee', this.state.roomid)
         window.socket.emit('new message', {
+          chatid: uuid.v4(),
           message: messageBox.value,
           roomid: this.state.roomid,
-          sentBy: this.props.currentUser
+          sentby: this.props.currentUser
         })
         this.refs.messageBox.value = ''
       }

@@ -20,14 +20,13 @@ exports.storeRoom = (room, cb) => {
 }
 
 const createRoom = (room, cb) => {
-  console.log('room created')
   Rooms.create({
     id: room.id,
     user1: room.sender,
     user2: room.receiver
   }, (err, data) => {
     if (err) {
-      console.log('not able to make room', err)
+      console.log('not able to create room', err)
       cb(false)
     } else {
       cb(room.id)
@@ -35,15 +34,15 @@ const createRoom = (room, cb) => {
   })
 }
 
-exports.saveChats = (chat) => {
+exports.saveChats = chat => {
   Rooms.findOne({id: chat.roomid}, 'chat', (err, doc) => {
     if (err) {
       return false
     }
     let chats = doc.chat
     chats.push({
-      chatid: uuid.v4(),
-      sentby: chat.sentBy.userid,
+      chatid: chat.chatid,
+      sentby: chat.sentby,
       message: chat.message
     })
     Rooms.update({id: chat.roomid}, {chat: chats}, (err, doc) => {
@@ -53,5 +52,15 @@ exports.saveChats = (chat) => {
         console.log('chat saved', doc)
       }
     })
+  })
+}
+
+exports.findChat = (roomid, cb) => {
+  Rooms.findOne({id: roomid}, (err, doc) => {
+    if (err) {
+      console.log(err)
+    } else {
+      cb(doc.chat)
+    }
   })
 }

@@ -21,6 +21,15 @@ export default class Contacts extends React.Component {
     window.socket.removeListener('getOnlineUsers')
   }
 
+  handleClick (user, e) {
+    e.preventDefault()
+    this.props.selectedUser(user, e)
+    window.socket.emit('join', {
+      sender: this.props.currentUser,
+      receiver: user
+    })
+  }
+
   render () {
     const onlineUsers = this.state.onlineUsers
     let i = 0
@@ -32,7 +41,7 @@ export default class Contacts extends React.Component {
           {
             onlineUsers.map(user => <li className='collection-item avatar'
               key={i++}
-              onClick={e => that.props.selectedUser(user, e)}>{user.name}</li>)
+              onClick={e => that.handleClick(user, e)}>{user.name}</li>)
           }
         </ul>
       </div>
