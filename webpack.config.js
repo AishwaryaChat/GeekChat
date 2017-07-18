@@ -37,7 +37,8 @@ module.exports = {
       Contacts: path.resolve('public/components/users/Contacts.js'),
       Navbar: path.resolve('public/components/users/navbar/Navbar.js'),
       Options: path.resolve('public/components/users/navbar/Options.js'),
-      Search: path.resolve('public/components/users/Search.js')
+      Search: path.resolve('public/components/users/Search.js'),
+      Video: path.resolve('public/components/Video.js')
     },
     extensions: ['*', '.js', '.jsx']
   }

@@ -1,8 +1,13 @@
 import React from 'react'
+import uuid from 'node-uuid'
 
 import User from 'User'
 import DefaultChat from 'DefaultChat'
 import Chat from 'Chat'
+
+window.peerID = uuid.v4()
+
+window.peer = new Peer(window.peerID, {host: 'peerjs-server.herokuapp.com', secure: true, port: 443})
 
 export default class Main extends React.Component {
   constructor () {

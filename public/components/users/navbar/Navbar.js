@@ -18,6 +18,7 @@ export default class Navbar extends React.Component {
         currentUser: data
       })
       this.props.setMainState('currentUser', data)
+      data['peerID'] = window.peerID
       window.socket.emit('new user', data)
     })
   }
