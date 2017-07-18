@@ -10,10 +10,31 @@ export default class ChatNavbar extends React.Component {
     this.showLocalVideo = this.showLocalVideo.bind(this)
     this.sendOffer = this.sendOffer.bind(this)
     this.initiatePeerConnection = this.initiatePeerConnection.bind(this)
+    this.onReceiveCall = this.onReceiveCall.bind(this)
+    this.acceptAnswer = this.acceptAnswer.bind(this)
+  }
+
+  // accept offer from caller and create an answer for caller
+  onReceiveCall (call) {
+    navigator.mediaDevices.getUserMedia(window.VideoChatConstraints)
+    .then(stream => video.gotStream(stream, this.props.localVideoElement))
+    .then(() => {
+      console.log('window.localStreammmmmmmmmm', window.localStream)
+      call.answer(window.localStream)
+    })
+    .then(() => {
+      call.on('stream', stream => {
+        window.peerStream = stream
+        console.log('onReceiveCall', window.peerStream)
+        video.onReceiveStream(stream, this.props.remoteVideoElement)
+      })
+    })
+    .catch(error => console.log(error))
   }
 
   initiatePeerConnection () {
     window.peer.on('open', () => {})
+
     window.peer.on('connection', connection => {
       const peerid = connection.peer
       console.log('peer id inside initiatePeerConnection', peerid)
@@ -21,6 +42,10 @@ export default class ChatNavbar extends React.Component {
         alert('accept video call')
         this.props.setMainState('videoChat', 'show-video')
       }
+    })
+
+    window.peer.on('call', call => {
+      this.onReceiveCall(call)
     })
   }
 
@@ -37,10 +62,23 @@ export default class ChatNavbar extends React.Component {
     }
   }
 
+  // accept answer from callee
+  acceptAnswer () {
+    const peerid = this.props.selectedUser.peerID
+    console.log('peerIDdddddddddddddddddd', peerid)
+    let call = window.peer.call(peerid, window.localStream)
+    call.on('stream', stream => {
+      window.peerStream = stream
+      console.log('remote element', this.props.remoteVideoElement)
+      video.onReceiveStream(stream, this.props.remoteVideoElement)
+    })
+  }
+
   showLocalVideo () {
     navigator.mediaDevices.getUserMedia(window.VideoChatConstraints)
     .then(stream => video.gotStream(stream, this.props.localVideoElement))
     .then(() => this.sendOffer())
+    .then(() => this.acceptAnswer())
     .catch(error => {
       console.log(error)
       alert('An error occured. Please try again')

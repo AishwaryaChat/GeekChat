@@ -6,6 +6,7 @@ export default class Video extends React.Component {
 
   componentDidMount () {
     this.props.setMainState('localVideoElement', this.refs.localVideo)
+    this.props.setMainState('remoteVideoElement', this.refs.remoteVideo)
   }
 
   render () {

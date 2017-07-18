@@ -11,6 +11,7 @@ export default class Chat extends React.Component {
         <ChatNavbar selectedUser={this.props.selectedUser}
           setMainState={this.props.setMainState}
           localVideoElement={this.props.localVideoElement}
+          remoteVideoElement={this.props.remoteVideoElement}
           currentUser={this.props.currentUser} />
         <ChatArea selectedUser={this.props.selectedUser} currentUser={this.props.currentUser}
           roomid={this.props.roomid} />

@@ -18,7 +18,8 @@ export default class Main extends React.Component {
       currentUser: {},
       chatSelected: false,
       videoChat: 'hide-video',
-      localVideoElement: ''
+      localVideoElement: '',
+      remoteVideoElement: ''
     }
   }
 
@@ -50,7 +51,8 @@ export default class Main extends React.Component {
         {chatSelected ? <div className='col m8 chat'>
           <Chat selectedUser={chatSelected} currentUser={this.state.currentUser}
             setMainState={this.setMainState} roomid={this.state.roomid}
-            localVideoElement={this.state.localVideoElement} /></div>
+            localVideoElement={this.state.localVideoElement}
+            remoteVideoElement={this.state.remoteVideoElement} /></div>
         : <div className='col m8 defaultChat'>
           <DefaultChat /></div>}
       </div>
