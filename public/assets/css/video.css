@@ -1,0 +1,21 @@
+#local-video {
+  top: 10px;
+  left: 10px;
+  width: inherit;
+  height: 120px;
+  background: #333333;
+}
+#remote-video {
+  top: 0px;
+  width: inherit;
+  height: 90%;
+  background: #999999;
+}
+
+.hide-video {
+  display: none;
+}
+
+.show-video {
+  display: block;
+}

@@ -11,7 +11,8 @@ export default class Main extends React.Component {
     this.setMainState = this.setMainState.bind(this)
     this.state = {
       currentUser: {},
-      chatSelected: false
+      chatSelected: false,
+      videoChat: 'hide-video'
     }
   }
 
@@ -35,9 +36,11 @@ export default class Main extends React.Component {
         <div className='col m4 user'>
           <User selectedUser={this.handleSelectedUser}
             setMainState={this.setMainState}
-            currentUser={this.state.currentUser} /></div>
+            currentUser={this.state.currentUser}
+            videoChat={this.state.videoChat} /></div>
         {chatSelected ? <div className='col m8 chat'>
-          <Chat selectedUser={chatSelected} currentUser={this.state.currentUser} setMainState={this.setMainState} roomid={this.state.roomid} /></div>
+          <Chat selectedUser={chatSelected} currentUser={this.state.currentUser}
+            setMainState={this.setMainState} roomid={this.state.roomid} /></div>
         : <div className='col m8 defaultChat'>
           <DefaultChat /></div>}
       </div>
