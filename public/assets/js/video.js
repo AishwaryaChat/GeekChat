@@ -9,5 +9,11 @@ const onReceiveStream = (stream, videoElement) => {
   window.peerStream = stream
 }
 
+exports.onEndCall = (e) => {
+  e.preventDefault()
+  window.localStream.getTracks().forEach(track => track.stop())
+  window.peerStream.getTracks().forEach(track => track.stop())
+}
+
 exports.gotStream = gotStream
 exports.onReceiveStream = onReceiveStream

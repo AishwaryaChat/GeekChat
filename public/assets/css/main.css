@@ -3,7 +3,6 @@ html, body {
     padding:0;
     height:100vh; /* needed for container min-height */
     width: 100%;
-    overflow: hidden;
     background-color: #f7f9fa
 }
 
