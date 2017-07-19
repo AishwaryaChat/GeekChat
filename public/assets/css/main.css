@@ -3,7 +3,8 @@ html, body {
     padding:0;
     height:100vh; /* needed for container min-height */
     width: 100%;
-    background-color: #f7f9fa
+    background-color: #f7f9fa;
+    overflow: hidden;
 }
 
 nav {

@@ -1,14 +1,13 @@
 #local-video {
-  top: 10px;
-  left: 10px;
-  width: inherit;
-  height: 120px;
+  top: calc(100vh-64px);
+  left: 0;
+  width: 20vh;
   background: #333333;
+  position: absolute;
 }
 #remote-video {
   top: 0px;
-  width: inherit;
-  height: 90%;
+  width: 63vh;
   background: #999999;
 }
 
@@ -18,4 +17,9 @@
 
 .show {
   display: block;
+}
+
+.video {
+  max-width: inherit;
+  width: 100%;
 }
