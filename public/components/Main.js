@@ -4,6 +4,7 @@ import uuid from 'node-uuid'
 import User from 'User'
 import DefaultChat from 'DefaultChat'
 import Chat from 'Chat'
+import video from 'public/assets/js/video.js'
 
 window.peerID = uuid.v4()
 
@@ -36,6 +37,49 @@ export default class Main extends React.Component {
     let newObj = {}
     newObj[key] = value
     this.setState(newObj)
+  }
+
+  // accept offer from caller and create an answer for caller
+  onReceiveCall (call) {
+    navigator.mediaDevices.getUserMedia(window.VideoChatConstraints)
+    .then(stream => video.gotStream(stream, this.state.localVideoElement))
+    .then(() => {
+      console.log('window.localStreammmmmmmmmm', window.localStream)
+      call.answer(window.localStream)
+    })
+    .then(() => {
+      call.on('stream', stream => {
+        window.peerStream = stream
+        console.log('onReceiveCall', window.peerStream)
+        video.onReceiveStream(stream, this.state.remoteVideoElement)
+      })
+    })
+    .catch(error => console.log(error))
+  }
+
+  initiatePeerConnection () {
+    window.peer.on('open', () => {})
+
+    window.peer.on('connection', connection => {
+      const peerid = connection.peer
+      console.log('peer id inside initiatePeerConnection', peerid)
+    })
+
+    window.peer.on('call', call => {
+      console.log('calllllllllllll', call.peer)
+      if (call.peer) {
+        if (confirm('want to accept video call')) {
+          this.setMainState('videoChat', 'show-video')
+          this.onReceiveCall(call)
+        } else {
+          console.log('call declined')
+        }
+      }
+    })
+  }
+
+  componentDidMount () {
+    this.initiatePeerConnection()
   }
 
   render () {
