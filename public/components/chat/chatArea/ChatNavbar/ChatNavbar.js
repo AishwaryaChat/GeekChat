@@ -12,20 +12,20 @@ export default class ChatNavbar extends React.Component {
     this.acceptAnswer = this.acceptAnswer.bind(this)
   }
 
+  // send an offer to callee
   sendOffer () {
     const peerid = this.props.selectedUser.peerID
     if (this.props.selectedUser.peerID) {
-      window.peer.connect(peerid, {metadata: {
-        'chatSelected': this.props.currentUser
-      }})
+      window.peer.connect(peerid)
     }
   }
 
   // accept answer from callee
   acceptAnswer () {
     const peerid = this.props.selectedUser.peerID
-    console.log('peerIDdddddddddddddddddd', peerid)
-    let call = window.peer.call(peerid, window.localStream)
+    let call = window.peer.call(peerid, window.localStream, {metadata: {
+      'chatSelected': this.props.currentUser
+    }})
     call.on('stream', stream => {
       window.peerStream = stream
       console.log('remote element', this.props.remoteVideoElement)
@@ -40,7 +40,7 @@ export default class ChatNavbar extends React.Component {
     .then(() => this.acceptAnswer())
     .catch(error => {
       console.log(error)
-      alert('An error occured. Please try again')
+      window.alert('An error occured. Please try again')
     })
   }
 
