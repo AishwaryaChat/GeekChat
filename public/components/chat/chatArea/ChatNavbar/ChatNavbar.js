@@ -56,7 +56,7 @@ export default class ChatNavbar extends React.Component {
       <nav className='grey lighten-2'>
         <div className='profile'>
           <ul className='nav color-grey'>
-            <li className='collection-item avatar'>
+            <li className='collection-item avatar' style={{fontSize: '18px', marginTop: '5px', color: 'black'}}>
               <span className='title'>{this.props.selectedUser.name}</span>
             </li>
             <li><i className='material-icons'>clear_all</i></li>
