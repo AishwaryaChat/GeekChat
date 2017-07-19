@@ -41,6 +41,7 @@ export default class Main extends React.Component {
 
   // accept offer from caller and create an answer for caller
   onReceiveCall (call) {
+    console.log('callllllllll', call)
     navigator.mediaDevices.getUserMedia(window.VideoChatConstraints)
     .then(stream => video.gotStream(stream, this.state.localVideoElement))
     .then(() => {
@@ -77,6 +78,9 @@ export default class Main extends React.Component {
         }
       }
     })
+    window.peer.on('close', () => {
+      console.log('connection closedddddddd')
+    })
   }
 
   componentDidMount () {
@@ -85,7 +89,6 @@ export default class Main extends React.Component {
 
   render () {
     let chatSelected = this.state.chatSelected
-    console.log('main state', this.state)
     return (
       <div className='row'>
         <div className='col m4 user'>

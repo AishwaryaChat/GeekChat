@@ -28,7 +28,6 @@ export default class ChatNavbar extends React.Component {
     }})
     call.on('stream', stream => {
       window.peerStream = stream
-      console.log('remote element', this.props.remoteVideoElement)
       video.onReceiveStream(stream, this.props.remoteVideoElement)
     })
   }
