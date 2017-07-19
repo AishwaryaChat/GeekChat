@@ -18,9 +18,10 @@ export default class Main extends React.Component {
     this.state = {
       currentUser: {},
       chatSelected: false,
-      videoChat: 'hide-video',
+      videoChat: 'hide',
       localVideoElement: '',
-      remoteVideoElement: ''
+      remoteVideoElement: '',
+      onlineList: 'show'
     }
   }
 
@@ -66,6 +67,7 @@ export default class Main extends React.Component {
     window.peer.on('call', call => {
       if (call.peer) {
         if (window.confirm('want to accept video call')) {
+          this.setMainState('onlineList', 'hide')
           window.socket.emit('join', {
             sender: this.state.currentUser,
             receiver: call.metadata.chatSelected
@@ -88,6 +90,7 @@ export default class Main extends React.Component {
   }
 
   render () {
+    console.log('main state', this.state)
     let chatSelected = this.state.chatSelected
     return (
       <div className='row'>
@@ -95,7 +98,8 @@ export default class Main extends React.Component {
           <User selectedUser={this.handleSelectedUser}
             setMainState={this.setMainState}
             currentUser={this.state.currentUser}
-            videoChat={this.state.videoChat} /></div>
+            videoChat={this.state.videoChat}
+            onlineList={this.state.onlineList} /></div>
         {chatSelected ? <div className='col m8 chat'>
           <Chat selectedUser={chatSelected} currentUser={this.state.currentUser}
             setMainState={this.setMainState} roomid={this.state.roomid}

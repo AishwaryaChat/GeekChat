@@ -2,7 +2,6 @@ import React from 'react'
 
 import Contacts from 'Contacts'
 import Navbar from 'Navbar'
-import Search from 'Search'
 import Video from 'Video'
 
 export default class User extends React.Component {
@@ -13,7 +12,9 @@ export default class User extends React.Component {
         <div className={this.props.videoChat}>
           <Video setMainState={this.props.setMainState} />
         </div>
-        <Contacts selectedUser={this.props.selectedUser} currentUser={this.props.currentUser} />
+        <div className={this.props.onlineList}>
+          <Contacts selectedUser={this.props.selectedUser} currentUser={this.props.currentUser} />
+        </div>
       </div>
     )
   }

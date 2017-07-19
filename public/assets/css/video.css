@@ -12,10 +12,10 @@
   background: #999999;
 }
 
-.hide-video {
+.hide {
   display: none;
 }
 
-.show-video {
+.show {
   display: block;
 }

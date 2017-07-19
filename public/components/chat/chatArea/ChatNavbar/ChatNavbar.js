@@ -45,7 +45,8 @@ export default class ChatNavbar extends React.Component {
 
   handleClick (e) {
     e.preventDefault()
-    this.props.setMainState('videoChat', 'show-video')
+    this.props.setMainState('onlineList', 'hide')
+    this.props.setMainState('videoChat', 'show')
     this.showLocalVideo()
   }
 

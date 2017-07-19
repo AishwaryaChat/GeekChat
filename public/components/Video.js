@@ -17,7 +17,8 @@ export default class Video extends React.Component {
 
   handleClick (e) {
     video.onEndCall(e)
-    this.props.setMainState('videoChat', 'hide-video')
+    this.props.setMainState('videoChat', 'hide')
+    this.props.setMainState('onlineList', 'show')
   }
 
   render () {
