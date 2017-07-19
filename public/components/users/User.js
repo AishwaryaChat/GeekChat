@@ -13,7 +13,6 @@ export default class User extends React.Component {
         <div className={this.props.videoChat}>
           <Video setMainState={this.props.setMainState} />
         </div>
-        <Search />
         <Contacts selectedUser={this.props.selectedUser} currentUser={this.props.currentUser} />
       </div>
     )

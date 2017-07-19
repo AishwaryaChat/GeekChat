@@ -36,13 +36,19 @@ export default class Contacts extends React.Component {
     let that = this
     return (
       <div>
+        <div className='row search'>
+          <div className='col m1'><i className='small material-icons' id='search-icon'>search</i></div>
+          <div className='col m11'>
+            <input placeholder='Search' id='search-input' type='text' className='validate' />
+          </div>
+        </div>
         <h6 className='section blue lighten-4 online-head'><b>Online Users</b></h6>
         <ul className='collection with-header online-users' id='online-list'>
           {
             onlineUsers.map(user => <li className='collection-item avatar'
               key={i++}
               onClick={e => that.handleClick(user, e)}>{user.name}</li>)
-          }
+            }
         </ul>
       </div>
     )

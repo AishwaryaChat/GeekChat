@@ -59,7 +59,6 @@ export default class ChatArea extends React.Component {
       })
     }
     if (this.state.roomid !== nextProps.roomid && nextProps.roomid !== undefined) {
-      console.log('chat area next propssssssssssssssss', nextProps.roomid)
       this.setState({
         roomid: nextProps.roomid
       })
