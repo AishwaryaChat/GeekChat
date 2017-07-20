@@ -10,6 +10,7 @@ html, body {
 nav {
   box-shadow: 0px 0px 0px #000;
   line-height: 20px;
+  height: 70px !important;
 }
 
 .online-users {
@@ -91,18 +92,24 @@ nav {
 }
 
 .message-box {
-  padding: 1em;
+  position: fixed;
+  bottom: 0px;
+  height: 60px;
+  margin-bottom: 0 !important;
+  width: 67%;
+  padding: 0.5em;
 }
 
 .input-msg {
-  margin-right: 1em !important;
-  padding-left: 1em !important;
+  width: 95% !important;
+  margin-right: 1% !important;
+  padding-left: 1% !important;
   border-radius: 10px !important;
   background-color: white !important;
 }
 
 .chat-area {
-  height: 530px;
+  height: calc(100vh - 130px);
   background-image: url('../images/chatBackground.jpg');
   overflow-y: scroll;
 }

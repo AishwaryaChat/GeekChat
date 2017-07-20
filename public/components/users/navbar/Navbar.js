@@ -34,7 +34,6 @@ export default class Navbar extends React.Component {
           <ul className='nav'>
             <li id='profile-pic' style={{fontSize: '18px', marginTop: '5px', color: 'black'}}>{this.state.currentUser.firstname}</li>
             <li><Options /></li>
-            <li><i className='material-icons'>chat</i></li>
           </ul>
         </div>
       </nav>

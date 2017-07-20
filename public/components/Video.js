@@ -26,7 +26,7 @@ export default class Video extends React.Component {
       <div className='video'>
         <video id='remote-video' ref='remoteVideo' autoPlay='true' />
         <video id='local-video' ref='localVideo' autoPlay='true' /><br />
-        <button id='end-call' onClick={e => this.handleClick(e)}>End Call</button>
+        <button id='end-call' className='waves-effect waves-teal btn' onClick={e => this.handleClick(e)}>End Call</button>
       </div>
     )
   }

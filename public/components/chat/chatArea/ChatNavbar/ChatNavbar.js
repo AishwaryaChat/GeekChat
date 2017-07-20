@@ -62,9 +62,7 @@ export default class ChatNavbar extends React.Component {
             <li className='collection-item avatar' style={{fontSize: '18px', marginTop: '5px', color: 'black'}}>
               <span className='title'>{this.props.selectedUser.name}</span>
             </li>
-            <li><i className='material-icons'>clear_all</i></li>
-            <li><i className='material-icons' onClick={e => that.handleClick(e)}>videocam</i></li>
-            <li><i className='material-icons'>call</i></li>
+            <li><i className='material-icons' style={{marginRight: '20px'}}onClick={e => that.handleClick(e)}>videocam</i></li>
           </ul>
         </div>
       </nav>

@@ -1,13 +1,14 @@
 #local-video {
   top: calc(100vh-64px);
   left: 0;
-  width: 20vh;
+  width: 10vw;
   background: #333333;
   position: absolute;
 }
 #remote-video {
   top: 0px;
-  width: 63vh;
+  width: 33vw;
+  height: 40vh;
   background: #999999;
 }
 
@@ -22,4 +23,8 @@
 .video {
   max-width: inherit;
   width: 100%;
+}
+
+#end-call {
+  background-color: #ef5350;
 }

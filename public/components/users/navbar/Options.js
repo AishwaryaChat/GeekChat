@@ -8,8 +8,6 @@ export default class Options extends React.Component {
           <i className='material-icons'>settings</i>
         </a>
         <ul id='dropdown1' className='dropdown-content'>
-          <li>Profile</li>
-          <li>Settings</li>
           <li><a href='/logout'>Logout</a></li>
         </ul>
       </div>

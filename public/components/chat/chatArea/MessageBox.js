@@ -30,7 +30,7 @@ export default class MessageBox extends React.Component {
   render () {
     return (
       <div className='row message-box'>
-        <input className='col m10 input-msg' ref='messageBox' type='text' placeholder='Type a message' />
+        <input className='input-msg' ref='messageBox' type='text' placeholder='Type a message' />
       </div>
     )
   }
