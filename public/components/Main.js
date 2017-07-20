@@ -42,6 +42,7 @@ export default class Main extends React.Component {
 
   // accept offer from caller and create an answer for caller
   onReceiveCall (call) {
+    console.log('on receive Call', call)
     navigator.mediaDevices.getUserMedia(window.VideoChatConstraints)
     .then(stream => video.gotStream(stream, this.state.localVideoElement))
     .then(() => {
@@ -49,6 +50,7 @@ export default class Main extends React.Component {
     })
     .then(() => {
       call.on('stream', stream => {
+        console.log('stream after answering call', stream)
         window.peerStream = stream
         video.onReceiveStream(stream, this.state.remoteVideoElement)
       })
@@ -64,6 +66,7 @@ export default class Main extends React.Component {
     })
 
     window.peer.on('call', call => {
+      console.log('call received', call)
       if (call.peer) {
         if (window.confirm('want to accept video call')) {
           this.setMainState('onlineList', 'hide')
@@ -77,6 +80,8 @@ export default class Main extends React.Component {
         } else {
           console.log('call declined')
         }
+      } else {
+        console.log('else for on call received')
       }
     })
     window.peer.on('close', () => {

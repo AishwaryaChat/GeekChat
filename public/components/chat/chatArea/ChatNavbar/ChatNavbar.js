@@ -14,6 +14,7 @@ export default class ChatNavbar extends React.Component {
 
   // send an offer to callee
   sendOffer () {
+    console.log('sending offer')
     const peerid = this.props.selectedUser.peerID
     if (this.props.selectedUser.peerID) {
       window.peer.connect(peerid)
@@ -22,6 +23,7 @@ export default class ChatNavbar extends React.Component {
 
   // accept answer from callee
   acceptAnswer () {
+    console.log('accepting answer')
     // const peerid = this.props.selectedUser.peerID
     window.peer.call(this.props.selectedUser.peerID, window.localStream, {metadata: {
       'chatSelected': this.props.currentUser
