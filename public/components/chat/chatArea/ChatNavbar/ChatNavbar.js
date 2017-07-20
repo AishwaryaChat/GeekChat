@@ -2,8 +2,6 @@ import React from 'react'
 
 import video from 'public/assets/js/video.js'
 
-let call = {}
-
 export default class ChatNavbar extends React.Component {
 
   constructor (props) {
@@ -24,17 +22,13 @@ export default class ChatNavbar extends React.Component {
 
   // accept answer from callee
   acceptAnswer () {
-    const peerid = this.props.selectedUser.peerID
-    window.peer.call(peerid, window.localStream, {metadata: {
+    // const peerid = this.props.selectedUser.peerID
+    window.peer.call(this.props.selectedUser.peerID, window.localStream, {metadata: {
       'chatSelected': this.props.currentUser
     }}).on('stream', stream => {
       window.peerStream = stream
       video.onReceiveStream(stream, this.props.remoteVideoElement)
     })
-    // call.on('stream', stream => {
-    //   window.peerStream = stream
-    //   video.onReceiveStream(stream, this.props.remoteVideoElement)
-    // })
   }
 
   showLocalVideo () {
