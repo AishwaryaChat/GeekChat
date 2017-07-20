@@ -31,6 +31,7 @@ export default class ChatNavbar extends React.Component {
       window.peerStream = stream
       video.onReceiveStream(stream, this.props.remoteVideoElement)
     })
+    console.log('accept answer completed')
   }
 
   showLocalVideo () {
