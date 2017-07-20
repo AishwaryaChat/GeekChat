@@ -1,6 +1,9 @@
 {
   "name": "geekchat",
   "version": "1.0.0",
+  "engines": {
+    "node": "8.1.4"
+  },
   "description": "A simple chat app using socket.io, peerjs to have text chat and video chat",
   "main": "server.js",
   "scripts": {
