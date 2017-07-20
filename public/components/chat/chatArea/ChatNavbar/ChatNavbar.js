@@ -2,6 +2,8 @@ import React from 'react'
 
 import video from 'public/assets/js/video.js'
 
+let call = {}
+
 export default class ChatNavbar extends React.Component {
 
   constructor (props) {
@@ -23,7 +25,7 @@ export default class ChatNavbar extends React.Component {
   // accept answer from callee
   acceptAnswer () {
     const peerid = this.props.selectedUser.peerID
-    let call = window.peer.call(peerid, window.localStream, {metadata: {
+    call = window.peer.call(peerid, window.localStream, {metadata: {
       'chatSelected': this.props.currentUser
     }})
     call.on('stream', stream => {

@@ -9,12 +9,10 @@ const session = require('express-session')({
   saveUninitialized: true
 })
 const server = require('http').createServer(app)
-// const redis = require('redis')
 const mongoose = require('mongoose')
 
 const chatServer = require('./lib/chatServer')
 const users = require('./src/controllers/users.js')
-// const client = redis.createClient()
 
 app.use(express.static(path.join(__dirname, 'public/build')))
 app.use(express.static(path.join(__dirname, 'public/assets')))
@@ -25,7 +23,6 @@ app.use(session)
 app.use('/io-square', express.static(path.join(__dirname, '/node_modules/io-square-browser/lib')))
 
 // Database connection
-// console.log('process.envvvvvvvv', process.env.MONGODB_URI)
 mongoose.connect(process.env.MONGODB_URI)
 const db = mongoose.connection
 mongoose.Promise = require('promise')
