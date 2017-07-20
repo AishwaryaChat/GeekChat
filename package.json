@@ -8,7 +8,8 @@
   "description": "A simple chat app using socket.io, peerjs to have text chat and video chat",
   "main": "server.js",
   "scripts": {
-    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
+    "build": "webpack --config ./webpack.config.js --progress --colors",
+    "postinstall": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
