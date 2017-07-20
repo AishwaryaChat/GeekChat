@@ -10,7 +10,7 @@
       <button class='tablinks' id='signinLink' onclick='openTab(event, "signin")'>Sign In</button>
       <button class='tablinks' id='signupLink' onclick='openTab(event, "signup")'>Sign Up</button>
       <div class='tabContent' id='signin'>
-        <img class='logo' src='images/geeklogo.png'/>
+        <img class='logo' src='images/smallGeeklogo.png'/>
         <form action='/login' method='post' Content-type='application/json' id='submitForm' >
           <input type='email' id='emailID' name='emailAddress' placeholder="email address" required/>
           <input type='password' id='pass' name='password' placeholder='password' required/>
@@ -18,7 +18,7 @@
         </form>
       </div>
       <div class='tabContent' id='signup'>
-        <img class='logo' src='images/geeklogo.png'/>
+        <img class='logo' src='images/smallGeeklogo.png'/>
         <form action='/signup' method='post' Content-type='application/json' id='submitForm'>
           <input type='text' id='firstname' placeholder='First Name' name='firstname' required />
           <input type='text' id='lastname' placeholder='Last Name' name='lastname' required />
