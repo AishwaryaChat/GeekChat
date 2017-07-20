@@ -42,7 +42,6 @@ export default class Main extends React.Component {
 
   // accept offer from caller and create an answer for caller
   onReceiveCall (call) {
-    console.log('callllllllll', call)
     navigator.mediaDevices.getUserMedia(window.VideoChatConstraints)
     .then(stream => video.gotStream(stream, this.state.localVideoElement))
     .then(() => {
@@ -90,7 +89,6 @@ export default class Main extends React.Component {
   }
 
   render () {
-    console.log('main state', this.state)
     let chatSelected = this.state.chatSelected
     return (
       <div className='row'>
