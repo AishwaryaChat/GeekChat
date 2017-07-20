@@ -26,7 +26,8 @@ app.use(session)
 app.use('/io-square', express.static(path.join(__dirname, '/node_modules/io-square-browser/lib')))
 
 // Database connection
-mongoose.connect(`mongodb://${config.HOST_NAME}:${config.PORT_NUMBER}/${config.DB_NAME}`)
+// console.log('process.envvvvvvvv', process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI)
 const db = mongoose.connection
 mongoose.Promise = require('promise')
 db.on('error', console.error.bind(console, 'db connection error:'))
@@ -35,7 +36,7 @@ db.once('open', (err) => {
   if (err) {
     throw new Error('Db not connected')
   }
-  server.listen(3000, () => {
+  server.listen(process.env.PORT || 3000, () => {
     console.log('listening on port 3000')
   })
   console.log('DB connected successfully and APP listening at: ' + Date())
