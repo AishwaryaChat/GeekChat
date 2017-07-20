@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/AishwaryaChat/GeekChat#readme",
   "dependencies": {
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.17.2",
     "cookie-parser": "^1.4.3",
     "express": "^4.15.3",

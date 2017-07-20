@@ -4,7 +4,7 @@ const path = require('path')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')({
-  secret: process.env.SESSION_SECRET || 'aishwarya',
+  secret: process.env.SESSION_SECRET,
   resave: true,
   saveUninitialized: true
 })
@@ -23,7 +23,7 @@ app.use(session)
 app.use('/io-square', express.static(path.join(__dirname, '/node_modules/io-square-browser/lib')))
 
 // Database connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/geekChat')
+mongoose.connect(process.env.MONGODB_URI)
 const db = mongoose.connection
 mongoose.Promise = require('promise')
 db.on('error', console.error.bind(console, 'db connection error:'))
