@@ -8,7 +8,7 @@
   "description": "A simple chat app using socket.io, peerjs to have text chat and video chat",
   "main": "server.js",
   "scripts": {
-    "build": "webpack --config ./webpack.config.js --progress --colors",
+    "build": "webpack -p",
     "postinstall": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

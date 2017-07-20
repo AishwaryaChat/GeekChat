@@ -25,6 +25,7 @@ export default class ChatNavbar extends React.Component {
   acceptAnswer () {
     console.log('accepting answer')
     // const peerid = this.props.selectedUser.peerID
+    console.log('peer selected', this.props.selectedUser.peerID)
     window.peer.call(this.props.selectedUser.peerID, window.localStream, {metadata: {
       'chatSelected': this.props.currentUser
     }}).on('stream', stream => {

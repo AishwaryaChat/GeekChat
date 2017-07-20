@@ -46,6 +46,7 @@ export default class Main extends React.Component {
     navigator.mediaDevices.getUserMedia(window.VideoChatConstraints)
     .then(stream => video.gotStream(stream, this.state.localVideoElement))
     .then(() => {
+      console.log('on receive call', window.localStream)
       call.answer(window.localStream)
     })
     .then(() => {
