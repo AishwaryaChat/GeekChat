@@ -74,9 +74,14 @@ export default class ChatArea extends React.Component {
     let messages = this.state.messages
     return (
       <div className='row chat-area'>
-        <ul className='col m12' ref='chatList'>
-          {messages.map(msg => <span><li className='chip' key={msg.chatid} style={{align: 'left'}}>
-            <b>{msg.sentby.firstname}</b>{': ' + msg.message}</li><br /></span>)}
+        <ul className='col m12' ref='chatLdivist'>
+          {messages.map(msg => {
+            return <span key={msg.chatid}>
+              <li className='chip'>
+                <b>{msg.sentby.firstname}</b>{': ' + msg.message}</li>
+              <br />
+            </span>
+          })}
         </ul>
       </div>
     )
