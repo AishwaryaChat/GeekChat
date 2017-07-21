@@ -16,28 +16,23 @@ export default class ChatNavbar extends React.Component {
 
   // send an offer to callee
   sendOffer () {
-    console.log('sending offer')
     const peerid = this.props.selectedUser.peerID
     if (this.props.selectedUser.peerID) {
-      window.peer.connect(peerid)
+      window.peer.connect(peerid, {metadata: {
+        'chatSelected': this.props.currentUser
+      }})
     }
   }
 
   // accept answer from callee
   acceptAnswer () {
-    console.log('accepting answer')
     const peerid = this.props.selectedUser.peerID
-    console.log('peer selected', this.props.selectedUser.peerID)
     if (peerid) {
-      call = window.peer.call(this.props.selectedUser.peerID, window.localStream, {metadata: {
-        'chatSelected': this.props.currentUser
-      }})
+      call = window.peer.call(this.props.selectedUser.peerID, window.localStream)
       call.on('stream', stream => {
-        console.log('streammmmmmm', stream)
         window.peerStream = stream
         video.onReceiveStream(stream, this.props.remoteVideoElement)
       }, false)
-      console.log('accept answer completed')
     }
   }
 

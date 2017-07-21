@@ -46,12 +46,10 @@ export default class Main extends React.Component {
     navigator.mediaDevices.getUserMedia(window.VideoChatConstraints)
     .then(stream => video.gotStream(stream, this.state.localVideoElement))
     .then(() => {
-      console.log('on receive call', window.localStream)
       call.answer(window.localStream)
     })
     .then(() => {
       call.on('stream', stream => {
-        console.log('stream after answering call', stream)
         window.peerStream = stream
         video.onReceiveStream(stream, this.state.remoteVideoElement)
       })
@@ -63,20 +61,19 @@ export default class Main extends React.Component {
     window.peer.on('open', () => {})
 
     window.peer.on('connection', connection => {
-      const peerid = connection.peer
+      console.log('connectionnnnnnnnnnnnn', connection)
+      this.setMainState('onlineList', 'hide')
+      window.socket.emit('join', {
+        sender: this.state.currentUser,
+        receiver: connection.metadata.chatSelected
+      })
+      this.handleSelectedUser(connection.metadata.chatSelected)
+      this.setMainState('videoChat', 'show-video')
     })
 
     window.peer.on('call', call => {
-      console.log('call received', call.peer)
       if (call.peer) {
         if (window.confirm('want to accept video call')) {
-          this.setMainState('onlineList', 'hide')
-          window.socket.emit('join', {
-            sender: this.state.currentUser,
-            receiver: call.metadata.chatSelected
-          })
-          this.handleSelectedUser(call.metadata.chatSelected)
-          this.setMainState('videoChat', 'show-video')
           this.onReceiveCall(call)
         } else {
           console.log('call declined')

@@ -1,11 +1,9 @@
 const gotStream = (stream, videoElement) => {
-  console.log('my streammmmmmmmmmm', stream)
   window.localStream = stream
   onReceiveStream(stream, videoElement)
 }
 
 const onReceiveStream = (stream, videoElement) => {
-  console.log('on receive stream')
   videoElement.srcObject = stream
   window.peerStream = stream
 }
