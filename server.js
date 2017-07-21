@@ -39,9 +39,9 @@ db.once('open', (err) => {
 })
 
 app.get('/', (req, res) => {
-  if (req.session.user_id) {
-    return res.redirect('/home')
-  }
+  // if (req.session.user_id) {
+  //   return res.redirect('/home')
+  // }
   return res.sendFile(path.join(__dirname, 'views/index.html'))
 })
 
@@ -50,10 +50,11 @@ app.post('/signup', users.addUser)
 app.post('/login', users.validateUser)
 
 app.get('/home', (req, res) => {
-  if (req.session.user_id) {
-    return res.sendFile(path.join(__dirname, 'public/index.html'))
-  }
-  return res.redirect('/')
+  // if (req.session.user_id) {
+  //   return res.sendFile(path.join(__dirname, 'public/index.html'))
+  // }
+  return res.sendFile(path.join(__dirname, 'public/index.html'))
+  // return res.redirect('/')
 })
 
 app.get('/userData', users.findUser)
