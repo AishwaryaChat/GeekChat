@@ -32,10 +32,6 @@ nav {
   margin-top: 15px;
 }
 
-#search-input {
-
-}
-
 .user {
   height: 100vh;
   border-right: 0.5px solid #bdbdbd;
@@ -112,4 +108,8 @@ nav {
   height: calc(100vh - 130px);
   background-image: url('../images/chatBackground.jpg');
   overflow-y: scroll;
+}
+
+.chip {
+  background-color: white;
 }
