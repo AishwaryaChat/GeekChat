@@ -1,7 +1,5 @@
 import React from 'react'
 
-import Options from 'Options'
-
 export default class Navbar extends React.Component {
   constructor () {
     super()
@@ -33,7 +31,7 @@ export default class Navbar extends React.Component {
         <div className='profile'>
           <ul className='nav'>
             <li id='profile-pic' style={{fontSize: '18px', marginTop: '5px', color: 'black'}}>{this.state.currentUser.firstname}</li>
-            <li><Options /></li>
+            <li><a href='/logout' style={{fontSize: '18px', marginTop: '5px', color: 'black'}}>Logout</a></li>
           </ul>
         </div>
       </nav>
