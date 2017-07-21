@@ -14,6 +14,7 @@ exports.onEndCall = (e) => {
   e.preventDefault()
   window.localStream.getTracks().forEach(track => track.stop())
   window.peerStream.getTracks().forEach(track => track.stop())
+  window.peerStream = {}
 }
 
 exports.gotStream = gotStream

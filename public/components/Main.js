@@ -67,7 +67,7 @@ export default class Main extends React.Component {
     })
 
     window.peer.on('call', call => {
-      console.log('call received', call)
+      console.log('call received', call.peer)
       if (call.peer) {
         if (window.confirm('want to accept video call')) {
           this.setMainState('onlineList', 'hide')
@@ -85,6 +85,12 @@ export default class Main extends React.Component {
         console.log('else for on call received')
       }
     })
+
+    // window.peer.on('error', (err) => {
+    //   window.alert('An error ocurred with peer: ' + err)
+    //   console.error(err)
+    // })
+
     window.peer.on('close', () => {
       console.log('connection closedddddddd')
     })
