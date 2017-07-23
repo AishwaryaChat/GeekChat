@@ -101,13 +101,13 @@ export default class Main extends React.Component {
     let chatSelected = this.state.chatSelected
     return (
       <div className='row'>
-        <div className='col m4 user'>
+        <div className={this.state.videoChat === 'hide' ? 'col m4 user' : 'col m8 user'}>
           <User selectedUser={this.handleSelectedUser}
             setMainState={this.setMainState}
             currentUser={this.state.currentUser}
             videoChat={this.state.videoChat}
             onlineList={this.state.onlineList} /></div>
-        {chatSelected ? <div className='col m8 chat'>
+        {chatSelected ? <div className={this.state.videoChat === 'hide' ? 'col m8 chat' : 'col m4 chat'}>
           <Chat selectedUser={chatSelected} currentUser={this.state.currentUser}
             setMainState={this.setMainState} roomid={this.state.roomid}
             localVideoElement={this.state.localVideoElement}

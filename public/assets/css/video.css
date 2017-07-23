@@ -1,14 +1,14 @@
 #local-video {
   top: calc(100vh-64px);
   left: 0;
-  width: 10vw;
+  width: 20vw;
   background: #333333;
   position: absolute;
 }
 #remote-video {
   top: 0px;
-  width: 33vw;
-  height: 40vh;
+  width: 66vw;
+  height: 80vh;
   background: #999999;
 }
 
